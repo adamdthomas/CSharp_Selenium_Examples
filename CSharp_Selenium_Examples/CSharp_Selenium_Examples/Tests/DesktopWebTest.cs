@@ -9,7 +9,7 @@ using OpenQA.Selenium.Remote;
 namespace CSharp_Selenium_Examples
 {
     [TestFixture]
-    public class AppiumWebTest : UnitTestClassBase
+    public class DesktopWebTest : UnitTestClassBase
     {
 
         IWebDriver driver;
