@@ -7,7 +7,7 @@ using OpenQA.Selenium.Support.UI;
 namespace CSharp_Selenium_Examples.Tests 
 {
     [TestFixture]
-    public class LeanFtTest1 : BaseTest
+    public class SimpleTest : BaseTest
     {
 
         IWebDriver driver;
