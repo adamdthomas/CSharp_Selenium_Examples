@@ -3,11 +3,12 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.PhantomJS;
 
 namespace CSharp_Selenium_Examples.Tests 
 {
     [TestFixture]
-    public class SimpleTest
+    public class HeadlessSimpleTest
     {
 
         IWebDriver driver;
@@ -23,18 +24,18 @@ namespace CSharp_Selenium_Examples.Tests
         public void SetUp()
         {
             // Before each test
-            driver = new ChromeDriver();
+            var driverService = PhantomJSDriverService.CreateDefaultService();
+            driverService.HideCommandPromptWindow = true;
+            driver = new PhantomJSDriver(driverService);
         }
 
         [Test]
-        public void Test()
+        public void HeadlessTest()
         {
             driver.Navigate().GoToUrl("http://www.google.com");
-
             driver.Manage().Cookies.DeleteAllCookies();
 
             IWebElement searchBar = driver.FindElement(By.Name("q"));
-
             searchBar.SendKeys("Selenium");
 
             IWebElement searchBtn = driver.FindElement(By.Name("btnG"));
@@ -43,10 +44,10 @@ namespace CSharp_Selenium_Examples.Tests
             WebDriverWait wait = new WebDriverWait(driver,TimeSpan.FromSeconds(30));
             wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.PartialLinkText("Selenium")));
 
-
             var firstResults = driver.FindElements(By.PartialLinkText("Selenium"));
             string firstResultText = firstResults[0].Text;
 
+            Assert.NotNull(firstResultText);
             Assert.IsTrue(firstResultText.Contains("Selenium"));
 
 

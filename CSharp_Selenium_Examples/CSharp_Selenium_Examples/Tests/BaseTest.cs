@@ -9,13 +9,7 @@ namespace CSharp_Selenium_Examples.Tests
 {
     public class BaseTest
     {
-        public IWebDriver basedriver;
 
-        public IWebElement Waitor(By locator)
-        {
-  
-            return null;
-        }
 
     }
 }

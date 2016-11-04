@@ -7,7 +7,7 @@ using OpenQA.Selenium.Support.UI;
 namespace CSharp_Selenium_Examples.Tests 
 {
     [TestFixture]
-    public class SimpleTest
+    public class ParameterizedSimpleTest
     {
 
         IWebDriver driver;
@@ -24,30 +24,31 @@ namespace CSharp_Selenium_Examples.Tests
         {
             // Before each test
             driver = new ChromeDriver();
+            driver.Navigate().GoToUrl("http://www.google.com");
         }
 
         [Test]
-        public void Test()
+        public void ParamTest([Values("Selenium", "Test Automation", "Open Source")] string searchTerm)
         {
-            driver.Navigate().GoToUrl("http://www.google.com");
+            
 
             driver.Manage().Cookies.DeleteAllCookies();
 
             IWebElement searchBar = driver.FindElement(By.Name("q"));
 
-            searchBar.SendKeys("Selenium");
+            searchBar.SendKeys(searchTerm);
 
             IWebElement searchBtn = driver.FindElement(By.Name("btnG"));
             searchBtn.Click();
 
             WebDriverWait wait = new WebDriverWait(driver,TimeSpan.FromSeconds(30));
-            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.PartialLinkText("Selenium")));
+            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.PartialLinkText(searchTerm)));
 
 
-            var firstResults = driver.FindElements(By.PartialLinkText("Selenium"));
+            var firstResults = driver.FindElements(By.PartialLinkText(searchTerm));
             string firstResultText = firstResults[0].Text;
 
-            Assert.IsTrue(firstResultText.Contains("Selenium"));
+            Assert.IsTrue(firstResultText.Contains(searchTerm));
 
 
         }
