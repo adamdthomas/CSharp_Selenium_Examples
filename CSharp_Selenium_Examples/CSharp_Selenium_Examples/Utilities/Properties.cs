@@ -7,10 +7,17 @@ using System.Threading.Tasks;
 
 namespace CSharp_Selenium_Examples.Utilities
 {
-    class Properties
+    enum ProtpertyType
     {
+        ID,
+        Name,
+        LinkText,
+        CSSName,
+        ClassName
+    }
 
+    public class Properties
+    {
         public static IWebDriver driver { get; set; }
-
     }
 }

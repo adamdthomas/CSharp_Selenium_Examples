@@ -5,16 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using CSharp_Selenium_Examples.Utilities;
 
 namespace CSharp_Selenium_Examples.Applications.TheInternetApp
 {
     class HomePage
     {
       
-
-        HomePage(IWebDriver driver)
+        HomePage()
         {
-            PageFactory.InitElements(driver, this);
+            PageFactory.InitElements(Properties.driver, this);
         }
 
         [FindsBy(How = How.XPath, Using = "//*[@id='content']/h1")] public IWebElement topBanner { get; set; }
@@ -25,6 +25,8 @@ namespace CSharp_Selenium_Examples.Applications.TheInternetApp
 
             return actualBanner == expectedBanner;
         }
+
+
 
     }
 }
